@@ -5,7 +5,12 @@
 
 <div class="left-panel">
 
-<h2>寸法検索</h2>
+<h2>
+  寸法検索
+  <span style="font-size: 14px; color: gray;">
+    （設置予定の寸法をcmで入力）
+  </span>
+</h2>
 
 <%= form_with url: root_path, method: :get, local: true do |f| %>
 
@@ -51,7 +56,12 @@
 
 <hr>
 
-<h2>容量検索</h2>
+<h2>
+  容量検索
+  <span style="font-size: 14px; color: gray;">
+    （100〜700の範囲で入力　単位はL）
+  </span>
+</h2>
 
 <%= form_with url: root_path, method: :get, local: true do |f| %>
 
