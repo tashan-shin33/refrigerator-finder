@@ -1,0 +1,283 @@
+
+<h1>冷 蔵 庫 検 索</h1>
+
+<div class="page-layout">
+
+<div class="left-panel">
+
+<h2>寸法検索</h2>
+
+<%= form_with url: root_path, method: :get, local: true do |f| %>
+
+<div>
+<%= f.label :width, "横幅" %>
+<%= f.number_field :width, value: params[:width] %>
+</div>
+
+<div>
+<%= f.label :depth, "奥行" %>
+<%= f.number_field :depth, value: params[:depth] %>
+</div>
+
+<div>
+<%= f.label :height, "高さ" %>
+<%= f.number_field :height, value: params[:height] %>
+</div>
+
+<%= f.submit "寸法検索" %>
+
+<% end %>
+
+
+<h2>並び替え</h2>
+
+<%= link_to "容量が大きい順",
+    root_path(
+      width: params[:width],
+      depth: params[:depth],
+      height: params[:height],
+      sort: "volume_desc"
+    ) %>
+
+|
+
+<%= link_to "容量が小さい順",
+    root_path(
+      width: params[:width],
+      depth: params[:depth],
+      height: params[:height],
+      sort: "volume_asc"
+    ) %>
+
+<hr>
+
+<h2>容量検索</h2>
+
+<%= form_with url: root_path, method: :get, local: true do |f| %>
+
+<div>
+<%= f.label :min_volume, "最小容量" %>
+<%= f.number_field :min_volume, value: params[:min_volume] %>
+</div>
+
+<div>
+<%= f.label :max_volume, "最大容量" %>
+<%= f.number_field :max_volume, value: params[:max_volume] %>
+</div>
+
+<%= hidden_field_tag :width, params[:width] %>
+<%= hidden_field_tag :depth, params[:depth] %>
+<%= hidden_field_tag :height, params[:height] %>
+
+<%= f.submit "容量検索" %>
+
+<% end %>
+
+<h2>並び替え</h2>
+
+<%= link_to "容量が大きい順",
+    root_path(
+      width: params[:width],
+      depth: params[:depth],
+      height: params[:height],
+      min_volume: params[:min_volume],
+      max_volume: params[:max_volume],
+      sort: "volume_desc"
+    ) %>
+
+|
+
+<%= link_to "容量が小さい順",
+    root_path(
+      width: params[:width],
+      depth: params[:depth],
+      height: params[:height],
+      min_volume: params[:min_volume],
+      max_volume: params[:max_volume],
+      sort: "volume_asc"
+    ) %>
+
+</div>
+
+<div class="right-panel">
+
+<% if params[:min_volume].present? && params[:max_volume].present? %>
+
+
+  <h2>
+    <%= params[:min_volume] %>L〜
+    <%= params[:max_volume] %>Lクラスで検索中
+  </h2>
+
+<h3>比較検索</h3>
+
+<%= link_to "冷凍庫容量が一番大きいのは？",
+      root_path(
+        width: params[:width],
+        depth: params[:depth],
+        height: params[:height],
+        min_volume: params[:min_volume],
+        max_volume: params[:max_volume],
+        sort: "freezer_desc"
+      ) %>
+
+<br><br>
+
+<%= link_to "自動製氷室容量が一番大きいのは？",
+      root_path(
+        width: params[:width],
+        depth: params[:depth],
+        height: params[:height],
+        min_volume: params[:min_volume],
+        max_volume: params[:max_volume],
+        sort: "icemaker_desc"
+      ) %>
+
+<br><br>
+
+<%= link_to "冷蔵室容量が一番大きいのは？",
+      root_path(
+        width: params[:width],
+        depth: params[:depth],
+        height: params[:height],
+        min_volume: params[:min_volume],
+        max_volume: params[:max_volume],
+        sort: "refrige_desc"
+      ) %>
+
+<br><br>
+
+<%= link_to "野菜室容量が一番大きいのは？",
+      root_path(
+        width: params[:width],
+        depth: params[:depth],
+        height: params[:height],
+        min_volume: params[:min_volume],
+        max_volume: params[:max_volume],
+        sort: "vegetable_desc"
+      ) %>
+
+<br><br>
+
+<%= link_to "切替室容量が一番大きいのは？",
+      root_path(
+        width: params[:width],
+        depth: params[:depth],
+        height: params[:height],
+        min_volume: params[:min_volume],
+        max_volume: params[:max_volume],
+        sort: "switched_desc"
+      ) %>
+
+<br><br>
+
+<%= link_to "年間消費電力が一番少ないのは？",
+      root_path(
+        width: params[:width],
+        depth: params[:depth],
+        height: params[:height],
+        min_volume: params[:min_volume],
+        max_volume: params[:max_volume],
+        sort: "power_asc"
+      ) %>
+
+<% end %>
+
+</div>
+</div>
+
+<hr>
+
+<% if params[:width].present? ||
+      params[:depth].present? ||
+      params[:height].present? ||
+      params[:min_volume].present? ||
+      params[:max_volume].present? %>
+
+  <hr>
+
+  <h2>検索条件</h2>
+
+  <% if params[:width].present? &&
+        params[:depth].present? &&
+        params[:height].present? %>
+
+    <p>
+      <strong>寸法条件：</strong>
+      横幅 <%= params[:width] %> cm /
+      奥行 <%= params[:depth] %> cm /
+      高さ <%= params[:height] %> cm
+    </p>
+
+  <% end %>
+
+  <% if params[:min_volume].present? &&
+        params[:max_volume].present? %>
+
+    <p>
+      <strong>容量条件：</strong>
+      <%= params[:min_volume] %>L 〜
+      <%= params[:max_volume] %>L
+    </p>
+
+  <% end %>
+
+<% end %>
+
+<% if @refrigerators.present? %>
+
+<table border="1">
+
+<tr>
+<th>型番</th>
+<th>メーカー名</th>
+<th>総容量(L)</th>
+<th>横幅(cm)</th>
+<th>横幅空きスペース(cm)</th>
+<th>奥行(cm)</th>
+<th>高さ(cm)</th>
+<th>冷凍室容量(L)</th>
+<th>自動製氷室容量(L)</th>
+<th>冷蔵室容量(L)</th>
+<th>野菜室容量(L)</th>
+<th>切替室容量(L)</th>
+<th>年間消費電力(kWh)</th>
+</tr>
+
+<% @refrigerators.each do |r| %>
+
+<tr>
+<td><%= r.product_name %></td>
+<td><%= r.manufacturer %></td>
+<td><%= r.volume %></td>
+<td><%= r.width %></td>
+<td>
+  <% if params[:width].present? %>
+    <%= params[:width].to_i - r.width %>
+  <% else %>
+    -
+  <% end %>
+</td>
+<td><%= r.depth %></td>
+<td><%= r.height %></td>
+<td><%= r.freezer_capacity %></td>
+<td><%= r.icemaker %></td>
+<td><%= r.refrige %></td>
+<td><%= r.vegetable %></td>
+<td><%= r.switched %></td>
+<td><%= r.annual_power_consumption %></td>
+</tr>
+
+<% end %>
+
+</table>
+
+<% elsif params[:width].present? || params[:min_volume].present? %>
+
+<p>該当する冷蔵庫はありません。</p>
+
+<% end %>
+
+</div>
+
+

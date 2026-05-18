@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  product_name: MyString
+  manufacturer: MyString
+  width: 1
+  depth: 1
+  height: 1
+  volume: 1
+  frozen: 1
+  refrige: 1
+  vegetable: 1
+  icemaker: 1
+  switched: 1
+  price: 1
+
+two:
+  product_name: MyString
+  manufacturer: MyString
+  width: 1
+  depth: 1
+  height: 1
+  volume: 1
+  frozen: 1
+  refrige: 1
+  vegetable: 1
+  icemaker: 1
+  switched: 1
+  price: 1
