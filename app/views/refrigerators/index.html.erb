@@ -186,31 +186,7 @@
         sort: "power_asc"
       ) %>
 
-<br><br>
 
-<h3>並び替え</h3>
-
-<%= link_to "容量が大きい順",
-      root_path(
-        width: params[:width],
-        depth: params[:depth],
-        height: params[:height],
-        min_volume: params[:min_volume],
-        max_volume: params[:max_volume],
-        sort: "volume_desc"
-      ) %>
-
-|
-
-<%= link_to "容量が小さい順",
-      root_path(
-        width: params[:width],
-        depth: params[:depth],
-        height: params[:height],
-        min_volume: params[:min_volume],
-        max_volume: params[:max_volume],
-        sort: "volume_asc"
-      ) %>
 
 <% end %>
 
