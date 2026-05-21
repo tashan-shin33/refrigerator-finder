@@ -106,13 +106,26 @@
 
 <div class="right-panel">
 
-<% if params[:min_volume].present? && params[:max_volume].present? %>
+<% if params[:min_volume].present? || params[:max_volume].present? %>
 
 
-  <h2>
+<h2>
+  <% if params[:min_volume].present? &&
+        params[:max_volume].present? %>
+
     <%= params[:min_volume] %>L〜
     <%= params[:max_volume] %>Lクラスで検索中
-  </h2>
+
+  <% elsif params[:min_volume].present? %>
+
+    <%= params[:min_volume] %>L以上で検索中
+
+  <% elsif params[:max_volume].present? %>
+
+    <%= params[:max_volume] %>L以下で検索中
+
+  <% end %>
+</h2>
 
 <h3>比較検索</h3>
 
