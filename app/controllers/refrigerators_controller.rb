@@ -5,14 +5,32 @@ class RefrigeratorsController < ApplicationController
     @refrigerators = Refrigerator.all
 
     # 寸法検索
-    if params[:width].present? &&
-      params[:depth].present? &&
-      params[:height].present?
+    if params[:width].blank? &&
+    (params[:depth].present? || params[:height].present?)
 
-      @refrigerators = @refrigerators
-        .where("width <= ?", params[:width])
-        .where("depth <= ?", params[:depth])
-        .where("height <= ?", params[:height])
+      flash.now[:alert] = "横幅だけでも入力ください"
+
+    elsif params[:width].present?
+
+      @refrigerators =
+        @refrigerators.where("width <= ?", params[:width])
+
+      if params[:depth].present?
+        @refrigerators =
+          @refrigerators.where("depth <= ?", params[:depth])
+      end
+
+      if params[:height].present?
+        @refrigerators =
+          @refrigerators.where("height <= ?", params[:height])
+      end
+
+    elsif params[:width].blank? &&
+          params[:depth].blank? &&
+          params[:height].blank? &&
+          params[:commit] == "寸法検索"
+
+      flash.now[:alert] = "横幅だけでも入力ください"
     end
 
     # 容量検索

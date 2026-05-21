@@ -1,6 +1,12 @@
 
 <h1>冷 蔵 庫 検 索</h1>
 
+<% if flash[:alert] %>
+  <p style="color: red; font-weight: bold;">
+    <%= flash[:alert] %>
+  </p>
+<% end %>
+
 <div class="page-layout">
 
 <div class="left-panel">
@@ -9,6 +15,7 @@
   寸法検索
   <span style="font-size: 14px; color: gray;">
     （設置予定の寸法をcmで入力）
+    （横幅だけでも検索可能）
   </span>
 </h2>
 
