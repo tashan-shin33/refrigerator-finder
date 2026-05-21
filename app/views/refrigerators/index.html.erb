@@ -129,6 +129,18 @@
 
 <h3>比較検索</h3>
 
+<%= link_to "総容量が一番大きいのは？",
+      root_path(
+        width: params[:width],
+        depth: params[:depth],
+        height: params[:height],
+        min_volume: params[:min_volume],
+        max_volume: params[:max_volume],
+        sort: "volume_desc"
+      ) %>
+
+<br><br>
+
 <%= link_to "冷凍庫容量が一番大きいのは？",
       root_path(
         width: params[:width],
@@ -199,7 +211,29 @@
         sort: "power_asc"
       ) %>
 
+<br><br>
 
+<h3>検索結果の並び替え</h3>
+
+<%= link_to "容量が大きい順",
+      root_path(
+        width: params[:width],
+        depth: params[:depth],
+        height: params[:height],
+        min_volume: params[:min_volume],
+        max_volume: params[:max_volume],
+        sort: "volume_desc"
+      ) %>
+
+<%= link_to "容量が小さい順",
+      root_path(
+        width: params[:width],
+        depth: params[:depth],
+        height: params[:height],
+        min_volume: params[:min_volume],
+        max_volume: params[:max_volume],
+        sort: "volume_asc"
+      ) %>
 
 <% end %>
 
