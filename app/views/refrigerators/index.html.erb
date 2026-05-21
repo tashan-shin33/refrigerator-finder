@@ -41,7 +41,9 @@
 <% end %>
 
 
-<h2>並び替え</h2>
+<% if params[:width].present? %>
+
+<h2>寸法検索結果の並び替え</h2>
 
 <%= link_to "容量が大きい順",
     root_path(
@@ -60,6 +62,8 @@
       height: params[:height],
       sort: "volume_asc"
     ) %>
+
+<% end %>
 
 <hr>
 
@@ -96,29 +100,7 @@
 
 <% end %>
 
-<h2>並び替え</h2>
 
-<%= link_to "容量が大きい順",
-    root_path(
-      width: params[:width],
-      depth: params[:depth],
-      height: params[:height],
-      min_volume: params[:min_volume],
-      max_volume: params[:max_volume],
-      sort: "volume_desc"
-    ) %>
-
-|
-
-<%= link_to "容量が小さい順",
-    root_path(
-      width: params[:width],
-      depth: params[:depth],
-      height: params[:height],
-      min_volume: params[:min_volume],
-      max_volume: params[:max_volume],
-      sort: "volume_asc"
-    ) %>
 
 </div>
 
@@ -202,6 +184,32 @@
         min_volume: params[:min_volume],
         max_volume: params[:max_volume],
         sort: "power_asc"
+      ) %>
+
+<br><br>
+
+<h3>並び替え</h3>
+
+<%= link_to "容量が大きい順",
+      root_path(
+        width: params[:width],
+        depth: params[:depth],
+        height: params[:height],
+        min_volume: params[:min_volume],
+        max_volume: params[:max_volume],
+        sort: "volume_desc"
+      ) %>
+
+|
+
+<%= link_to "容量が小さい順",
+      root_path(
+        width: params[:width],
+        depth: params[:depth],
+        height: params[:height],
+        min_volume: params[:min_volume],
+        max_volume: params[:max_volume],
+        sort: "volume_asc"
       ) %>
 
 <% end %>
