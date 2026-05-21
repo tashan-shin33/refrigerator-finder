@@ -35,10 +35,33 @@ class RefrigeratorsController < ApplicationController
 
     # 容量検索
     if params[:min_volume].present? &&
-          params[:max_volume].present?
+      params[:max_volume].present?
 
-      @refrigerators = @refrigerators
-        .where(volume: params[:min_volume]..params[:max_volume])
+      @refrigerators =
+        @refrigerators.where(
+          volume: params[:min_volume]..params[:max_volume]
+        )
+
+    elsif params[:min_volume].present?
+
+      @refrigerators =
+        @refrigerators.where(
+          "volume >= ?",
+          params[:min_volume]
+        )
+
+    elsif params[:max_volume].present?
+
+      @refrigerators =
+        @refrigerators.where(
+          "volume <= ?",
+          params[:max_volume]
+        )
+
+    elsif params[:commit] == "容量検索"
+
+      flash.now[:alert] =
+        "最小容量もしくは最大容量だけでも入力ください"
     end
 
     # 並び替え
